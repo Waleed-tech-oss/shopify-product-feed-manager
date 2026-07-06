@@ -1,3 +1,5 @@
+
+
 import { useEffect } from "react";
 import { useFetcher } from "react-router";
 import { useAppBridge } from "@shopify/app-bridge-react";
@@ -329,3 +331,10 @@ export default function Index() {
 export const headers = (headersArgs) => {
   return boundary.headers(headersArgs);
 };
+
+
+
+
+
+
+
