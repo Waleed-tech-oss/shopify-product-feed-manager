@@ -40,8 +40,15 @@ export default function FeedDetails() {
       <h1>{feed.feedName}</h1>
 
       <p>
-        <strong>Format:</strong> {feed.format}
-      </p>
+  <strong>Channel:</strong>{" "}
+  {feed.channel === "meta"
+    ? "🔵 Meta Commerce"
+    : "🟢 Google Merchant"}
+</p>
+
+<p>
+  <strong>Format:</strong> {feed.format}
+</p>
 
       <p>
         <strong>Currency:</strong> {feed.currency}

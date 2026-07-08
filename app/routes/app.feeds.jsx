@@ -63,6 +63,7 @@ if (formData.action === "edit") {
     formData.feedId,
     {
       feedName: formData.feedName,
+      channel: formData.channel,
       format: formData.format,
       currency: formData.currency,
       language: formData.language,
@@ -104,6 +105,7 @@ if (formData.action === "edit") {
     const result = await createFeed({
       shopDomain: session.shop,
       feedName: formData.feedName,
+      channel: formData.channel,
       format: formData.format,
       currency: formData.currency,
       language: formData.language,

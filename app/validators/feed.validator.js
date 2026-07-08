@@ -6,6 +6,13 @@ export function validateFeed(data) {
     errors.feedName = "Feed name is required.";
   }
 
+  // ✅ Channel
+  if (!data.channel) {
+    errors.channel = "Channel is required.";
+  } else if (!["google", "meta"].includes(data.channel)) {
+    errors.channel = "Invalid channel.";
+  }
+
   // Format
   if (!data.format) {
     errors.format = "Feed format is required.";

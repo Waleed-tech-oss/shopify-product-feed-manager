@@ -1,10 +1,8 @@
 import { Form } from "react-router";
 import { useNavigate } from "react-router";
-export default function FeedTable({ feeds,
-  onEdit }) {
-   
-    const navigate = useNavigate();
 
+export default function FeedTable({ feeds, onEdit }) {
+  const navigate = useNavigate();
 
   if (!feeds || feeds.length === 0) {
     return (
@@ -23,6 +21,7 @@ export default function FeedTable({ feeds,
         <thead>
           <tr>
             <th>Feed Name</th>
+            <th>Channel</th>
             <th>Format</th>
             <th>Currency</th>
             <th>Country</th>
@@ -36,8 +35,25 @@ export default function FeedTable({ feeds,
           {feeds.map((feed) => (
             <tr key={feed._id}>
               <td>{feed.feedName}</td>
+
+              <td>
+                <span
+                  className={`channel-badge ${
+                    feed.channel === "meta"
+                      ? "meta"
+                      : "google"
+                  }`}
+                >
+                  {feed.channel === "meta"
+                    ? "🔵 Meta"
+                    : "🟢 Google"}
+                </span>
+              </td>
+
               <td>{feed.format}</td>
+
               <td>{feed.currency}</td>
+
               <td>{feed.country}</td>
 
               <td>
@@ -48,77 +64,79 @@ export default function FeedTable({ feeds,
                       : "status inactive"
                   }
                 >
-                  {feed.isActive ? "Active" : "Inactive"}
+                  {feed.isActive
+                    ? "Active"
+                    : "Inactive"}
                 </span>
               </td>
 
               <td>
-                {new Date(feed.createdAt).toLocaleDateString()}
+                {new Date(
+                  feed.createdAt
+                ).toLocaleDateString()}
               </td>
 
               <td>
                 <button
-  className="edit-btn"
-  type="button"
-  onClick={() => {
-    console.log("Edit Clicked:", feed);
-    onEdit(feed);
-  }}
->
-  Edit
-</button>
+                  className="edit-btn"
+                  type="button"
+                  onClick={() => onEdit(feed)}
+                >
+                  Edit
+                </button>
 
+                <button
+                  className="preview-btn"
+                  type="button"
+                  onClick={() =>
+                    navigate(
+                      `/app/feed-preview?feedId=${feed._id}`
+                    )
+                  }
+                >
+                  Preview
+                </button>
 
-<button
-  className="preview-btn"
-  type="button"
-  onClick={() =>
-    navigate(
-      `/app/feed-preview?feedId=${feed._id}`
-    )
-  }
->
-  Preview
-</button>
-
-<button
-  className="preview-btn"
-  onClick={() =>
-    navigate(
-      `/app/feed-details?feedId=${feed._id}`
-    )
-  }
->
-  Details
-</button>
-
-
+                <button
+                  className="preview-btn"
+                  onClick={() =>
+                    navigate(
+                      `/app/feed-details?feedId=${feed._id}`
+                    )
+                  }
+                >
+                  Details
+                </button>
 
                 <Form method="post">
-  <input
-    type="hidden"
-    name="action"
-    value="delete"
-  />
+                  <input
+                    type="hidden"
+                    name="action"
+                    value="delete"
+                  />
 
-  <input
-    type="hidden"
-    name="feedId"
-    value={feed._id}
-  />
+                  <input
+                    type="hidden"
+                    name="feedId"
+                    value={feed._id}
+                  />
 
-  <button
-    type="submit"
-    className="delete-btn"
-    onClick={(e) => {
-      if (!window.confirm("Delete this feed?")) {
-        e.preventDefault();
-      }
-    }}
-  >
-    Delete
-  </button>
-</Form>
+                  <button
+                    type="submit"
+                    className="delete-btn"
+                    onClick={(e) => {
+                      if (
+                        !window.confirm(
+                          "Delete this feed?"
+                        )
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                </Form>
               </td>
             </tr>
           ))}

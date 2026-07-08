@@ -8,6 +8,7 @@ export async function createFeed(feedData) {
   const existingFeed = await Feed.findOne({
     shopDomain: feedData.shopDomain,
     feedName: feedData.feedName,
+    channel: feedData.channel,
     format: feedData.format,
   });
 

@@ -14,6 +14,14 @@ const feedSchema = new mongoose.Schema(
       trim: true,
     },
 
+    // ✅ NEW FIELD
+    channel: {
+      type: String,
+      enum: ["google", "meta"],
+      default: "google",
+      required: true,
+    },
+
     feedToken: {
       type: String,
       required: true,
@@ -53,14 +61,14 @@ const feedSchema = new mongoose.Schema(
     },
 
     country: {
-  type: String,
-  default: "US",
-},
+      type: String,
+      default: "US",
+    },
 
-targetMarket: {
-  type: String,
-  default: "Google Shopping",
-},
+    targetMarket: {
+      type: String,
+      default: "Google Shopping",
+    },
   },
   {
     timestamps: true,

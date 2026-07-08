@@ -152,6 +152,13 @@ export default function FeedPreview() {
 
   <p><strong>Status:</strong> {feed.isActive ? "Active" : "Inactive"}</p>
 
+  <p>
+  <strong>Channel:</strong>{" "}
+  {feed.channel === "meta"
+    ? "🔵 Meta Commerce"
+    : "🟢 Google Merchant"}
+</p>
+
   <p><strong>Format:</strong> {feed.format}</p>
 
   <p><strong>Currency:</strong> {feed.currency}</p>

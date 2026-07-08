@@ -12,7 +12,6 @@ export default function EditFeedModal({
 
   return (
     <div className="modal-overlay">
-
       <div className="modal">
 
         <h2>Edit Feed</h2>
@@ -40,6 +39,25 @@ export default function EditFeedModal({
               defaultValue={feed.feedName}
               required
             />
+          </div>
+
+          {/* ✅ NEW CHANNEL */}
+
+          <div className="form-group">
+            <label>Channel</label>
+
+            <select
+              name="channel"
+              defaultValue={feed.channel || "google"}
+            >
+              <option value="google">
+                Google Merchant
+              </option>
+
+              <option value="meta">
+                Meta Commerce
+              </option>
+            </select>
           </div>
 
           <div className="form-group">
@@ -119,27 +137,19 @@ export default function EditFeedModal({
           </div>
 
           <div className="checkbox-group">
-
             <label>
-
               <input
                 type="checkbox"
                 name="includeOutOfStock"
-                defaultChecked={
-                  feed.includeOutOfStock
-                }
+                defaultChecked={feed.includeOutOfStock}
               />
 
               Include Out of Stock
-
             </label>
-
           </div>
 
           <div className="checkbox-group">
-
             <label>
-
               <input
                 type="checkbox"
                 name="isActive"
@@ -147,9 +157,7 @@ export default function EditFeedModal({
               />
 
               Feed Active
-
             </label>
-
           </div>
 
           <div className="modal-actions">
@@ -174,7 +182,6 @@ export default function EditFeedModal({
         </Form>
 
       </div>
-
     </div>
   );
 }
