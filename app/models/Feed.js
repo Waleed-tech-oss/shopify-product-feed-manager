@@ -14,10 +14,9 @@ const feedSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // ✅ NEW FIELD
     channel: {
       type: String,
-      enum: ["google", "meta"],
+      enum: ["google", "meta", "tiktok"],
       default: "google",
       required: true,
     },
@@ -48,6 +47,11 @@ const feedSchema = new mongoose.Schema(
     defaultCategory: {
       type: String,
       default: "",
+    },
+
+    googleProductCategory: {
+    type: String,
+    default: "",
     },
 
     includeOutOfStock: {

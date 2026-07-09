@@ -60,21 +60,27 @@ export async function action({ request }) {
 if (formData.action === "edit") {
 
   const result = await updateFeed(
-    formData.feedId,
-    {
-      feedName: formData.feedName,
-      channel: formData.channel,
-      format: formData.format,
-      currency: formData.currency,
-      language: formData.language,
-      country: formData.country,
-      defaultCategory: formData.defaultCategory,
-      includeOutOfStock:
-        formData.includeOutOfStock === "on",
-      isActive:
-        formData.isActive === "on",
-    }
-  );
+  formData.feedId,
+  {
+    feedName: formData.feedName,
+    channel: formData.channel,
+    format: formData.format,
+    currency: formData.currency,
+    language: formData.language,
+    country: formData.country,
+    defaultCategory: formData.defaultCategory,
+
+    // ✅ NEW
+    googleProductCategory:
+      formData.googleProductCategory,
+
+    includeOutOfStock:
+      formData.includeOutOfStock === "on",
+
+    isActive:
+      formData.isActive === "on",
+  }
+);
 
   return {
     success: true,
@@ -103,19 +109,25 @@ if (formData.action === "edit") {
     // CREATE FEED
     // ==========================
     const result = await createFeed({
-      shopDomain: session.shop,
-      feedName: formData.feedName,
-      channel: formData.channel,
-      format: formData.format,
-      currency: formData.currency,
-      language: formData.language,
-      country: formData.country,
-      defaultCategory: formData.defaultCategory,
-      includeOutOfStock:
-        formData.includeOutOfStock === "on",
-      isActive:
-        formData.isActive === "on",
-    });
+  shopDomain: session.shop,
+  feedName: formData.feedName,
+  channel: formData.channel,
+  format: formData.format,
+  currency: formData.currency,
+  language: formData.language,
+  country: formData.country,
+  defaultCategory: formData.defaultCategory,
+
+  // ✅ NEW
+  googleProductCategory:
+    formData.googleProductCategory,
+
+  includeOutOfStock:
+    formData.includeOutOfStock === "on",
+
+  isActive:
+    formData.isActive === "on",
+});
 
     return result;
 

@@ -26,14 +26,42 @@ export function buildXMLFeed({
 <link>${item.link}</link>
 
 <g:image_link>${item.image}</g:image_link>
+`;
 
+    // ✅ Additional Images
+    item.additionalImages?.forEach((image) => {
+      xml += `
+<g:additional_image_link>${image}</g:additional_image_link>
+`;
+    });
+
+    xml += `
 <g:brand>${item.brand}</g:brand>
+
+${item.productType
+  ? `<g:product_type>${item.productType}</g:product_type>`
+  : ""}
+
+
+  ${item.googleProductCategory
+  ? `<g:google_product_category>${item.googleProductCategory}</g:google_product_category>`
+  : ""}
+
+
+<g:gtin>${item.gtin}</g:gtin>
+
+<g:mpn>${item.mpn}</g:mpn>
+
+<g:identifier_exists>${item.identifierExists}</g:identifier_exists>
 
 <g:condition>${item.condition}</g:condition>
 
 <g:availability>${item.availability}</g:availability>
 
 <g:price>${item.price}</g:price>
+${item.salePrice
+  ? `<g:sale_price>${item.salePrice}</g:sale_price>`
+  : ""}
 
 </item>
 `;

@@ -79,3 +79,25 @@
 .preview-btn:hover {
   background: #1d4ed8;
 }
+
+.channel-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.channel-badge.google {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.channel-badge.meta {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.channel-badge.tiktok {
+  background: #eeeeee;
+  color: #000000;
+}

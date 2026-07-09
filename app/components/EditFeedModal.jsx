@@ -57,6 +57,10 @@ export default function EditFeedModal({
               <option value="meta">
                 Meta Commerce
               </option>
+
+              <option value="tiktok">
+                TikTok Catalog
+              </option>
             </select>
           </div>
 

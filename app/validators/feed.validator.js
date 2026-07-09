@@ -9,7 +9,7 @@ export function validateFeed(data) {
   // ✅ Channel
   if (!data.channel) {
     errors.channel = "Channel is required.";
-  } else if (!["google", "meta"].includes(data.channel)) {
+  } else if (!["google", "meta", "tiktok"].includes(data.channel)) {
     errors.channel = "Invalid channel.";
   }
 

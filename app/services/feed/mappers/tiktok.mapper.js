@@ -1,5 +1,5 @@
 import { mapBaseProducts } from "./base.mapper";
 
-export function mapMetaProducts(products, feed) {
+export function mapTikTokProducts(products, feed) {
   return mapBaseProducts(products, feed);
 }

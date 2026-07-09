@@ -15,13 +15,30 @@ export async function getShopifyProducts(admin) {
               url
             }
 
-            variants(first: 1) {
+            images(first: 10) {
+              edges {
+                node {
+                  url
+                }
+              }
+            }
+
+            variants(first: 50) {
               edges {
                 node {
                   id
+                  title
                   sku
                   barcode
                   price
+                  compareAtPrice
+                  inventoryQuantity
+                  inventoryPolicy
+
+                  selectedOptions {
+                    name
+                    value
+                  }
                 }
               }
             }
@@ -33,7 +50,5 @@ export async function getShopifyProducts(admin) {
 
   const data = await response.json();
 
-  return data.data.products.edges.map(
-    ({ node }) => node
-  );
+  return data.data.products.edges.map(({ node }) => node);
 }

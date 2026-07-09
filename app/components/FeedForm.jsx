@@ -14,6 +14,7 @@ export default function FeedForm({ editingFeed }) {
     language: "en",
     country: "PK",
     defaultCategory: "",
+    googleProductCategory: "",
     includeOutOfStock: false,
     isActive: true,
   });
@@ -28,6 +29,8 @@ export default function FeedForm({ editingFeed }) {
         language: editingFeed.language,
         country: editingFeed.country,
         defaultCategory: editingFeed.defaultCategory,
+        googleProductCategory:
+        editingFeed.googleProductCategory || "",
         includeOutOfStock: editingFeed.includeOutOfStock,
         isActive: editingFeed.isActive,
       });
@@ -40,6 +43,7 @@ export default function FeedForm({ editingFeed }) {
         language: "en",
         country: "PK",
         defaultCategory: "",
+        googleProductCategory: "",
         includeOutOfStock: false,
         isActive: true,
       });
@@ -99,6 +103,10 @@ export default function FeedForm({ editingFeed }) {
           <option value="meta">
             Meta Commerce
           </option>
+
+          <option value="tiktok">
+               TikTok Catalog
+            </option>
         </select>
       </div>
 
@@ -183,6 +191,18 @@ export default function FeedForm({ editingFeed }) {
           onChange={handleChange}
         />
       </div>
+
+      <div className="form-group">
+  <label>Google Product Category</label>
+
+  <input
+    type="text"
+    name="googleProductCategory"
+    placeholder="Electronics > Computers > Laptop Accessories"
+    value={formData.googleProductCategory}
+    onChange={handleChange}
+  />
+</div>
 
       <div className="checkbox-group">
         <label>
