@@ -8,13 +8,20 @@ export function mapBaseProducts(products, feed) {
     return {
       id: product.id,
 
+      skuId: variant?.sku || product.id,
+
       title: product.title,
 
-      description: product.description || "",
+     description:
+  product.description?.trim() ||
+  `${product.title} by ${product.vendor}`,
 
       link: `https://${feed.shopDomain}/products/${product.handle}`,
 
-      image: product.featuredImage?.url || "",
+      image:
+  product.featuredImage?.url ||
+  product.images.edges[0]?.node.url ||
+  "",
 
       additionalImages: product.images.edges
         .map((img) => img.node.url)
@@ -22,9 +29,11 @@ export function mapBaseProducts(products, feed) {
           (url) => url !== product.featuredImage?.url
         ),
 
-      brand: product.vendor || "",
+      brand:
+  product.vendor || "Generic",
 
-      productType: product.productType || "",
+      productType:
+  product.productType || "General",
 
       googleProductCategory:
         feed.googleProductCategory || "",

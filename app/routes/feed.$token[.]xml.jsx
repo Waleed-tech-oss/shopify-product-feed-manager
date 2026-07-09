@@ -28,11 +28,16 @@ const { unauthenticated } = await import("../shopify.server");
 const { admin } = await unauthenticated.admin(feed.shopDomain);
   const products = await getShopifyProducts(admin);
 
-  const xml = generateXMLFeed(products, feed);
+const feedContent = generateXMLFeed(products, feed);
 
-  return new Response(xml, {
-    headers: {
-      "Content-Type": "application/xml",
-    },
-  });
+const contentType =
+  feed.channel === "tiktok"
+    ? "text/csv"
+    : "application/xml";
+
+return new Response(feedContent, {
+  headers: {
+    "Content-Type": contentType,
+  },
+});
 }

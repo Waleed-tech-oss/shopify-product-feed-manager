@@ -5,45 +5,6 @@ import { getShopifyProducts } from "../services/shopify-products.service";
 import { generateXMLFeed } from "../services/xml-generator.service";
 
 
-// export async function loader({ request }) {
-//   await connectDB();
-
-//   const url = new URL(request.url);
-
-//   const feedId = url.searchParams.get("feedId");
-
-//   if (!feedId) {
-//     throw new Response("Feed ID is required", {
-//       status: 400,
-//     });
-//   }
-
-//   const feedDoc = await Feed.findById(feedId).lean();
-
-// if (!feedDoc) {
-//   throw new Response("Feed not found", {
-//     status: 404,
-//   });
-// }
-
-// const feed = {
-//   ...feedDoc,
-//   _id: feedDoc._id.toString(),
-// };
-
-
-//   const { admin } = await authenticate.admin(request);
-
-//   const products = await getShopifyProducts(admin);
-
-//   const xml = generateXMLFeed(products, feed);
-
-//   return {
-//     feed,
-//     xml,
-//   };
-// }
-
 
 export async function loader({ request }) {
 
@@ -80,47 +41,19 @@ export async function loader({ request }) {
 
   const products = await getShopifyProducts(admin);
 
-  const xml = generateXMLFeed(products, feed);
+  const feedContent = generateXMLFeed(products, feed);
 
   const productCount = products.length;
 
   return {
     feed,
-    xml,
+    feedContent,
     productCount,
   };
 }
 
 
 
-// export default function FeedPreview() {
-//   const { feed, xml } = useLoaderData();
-
-//   return (
-//     <div
-//       style={{
-//         padding: "30px",
-//       }}
-//     >
-//       <h1>Feed Preview</h1>
-
-//       <h2>{feed.feedName}</h2>
-
-//       <pre
-//         style={{
-//           background: "#f4f4f4",
-//           padding: "20px",
-//           borderRadius: "8px",
-//           overflowX: "auto",
-//           maxHeight: "700px",
-//           whiteSpace: "pre-wrap",
-//         }}
-//       >
-//         {xml}
-//       </pre>
-//     </div>
-//   );
-// }
 
 
 
@@ -129,7 +62,7 @@ export default function FeedPreview() {
 
   const {
   feed,
-  xml,
+  feedContent,
   productCount,
 } = useLoaderData();
 
@@ -154,9 +87,11 @@ export default function FeedPreview() {
 
   <p>
   <strong>Channel:</strong>{" "}
-  {feed.channel === "meta"
+  {feed.channel === "google"
+    ? "🟢 Google Merchant"
+    : feed.channel === "meta"
     ? "🔵 Meta Commerce"
-    : "🟢 Google Merchant"}
+    : "⚫ TikTok Catalog"}
 </p>
 
   <p><strong>Format:</strong> {feed.format}</p>
@@ -177,25 +112,32 @@ export default function FeedPreview() {
 
       <button
   onClick={() => {
-    const blob = new Blob([xml], {
-      type: "application/xml",
-    });
+  const isTikTok = feed.channel === "tiktok";
 
-    const url = URL.createObjectURL(blob);
+  const blob = new Blob([feedContent], {
+    type: isTikTok
+      ? "text/csv"
+      : "application/xml",
+  });
 
-    const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
 
-    link.href = url;
-    link.download = `${feed.feedName}.xml`;
+  const link = document.createElement("a");
 
-    document.body.appendChild(link);
+  link.href = url;
 
-    link.click();
+  link.download = `${feed.feedName}.${
+    isTikTok ? "csv" : "xml"
+  }`;
 
-    document.body.removeChild(link);
+  document.body.appendChild(link);
 
-    URL.revokeObjectURL(url);
-  }}
+  link.click();
+
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+}}
   style={{
     marginBottom: "20px",
     padding: "10px 20px",
@@ -206,7 +148,9 @@ export default function FeedPreview() {
     cursor: "pointer",
   }}
 >
-  Download XML
+  {feed.channel === "tiktok"
+  ? "Download CSV"
+  : "Download XML"}
 </button>
 
 
@@ -216,13 +160,20 @@ export default function FeedPreview() {
     marginBottom: "10px",
   }}
 >
-  XML Preview
+  {feed.channel === "tiktok"
+  ? "CSV Preview"
+  : "XML Preview"}
 </h3>
 
 <button
   onClick={() => {
-    const url =
-      `${window.location.origin}/feed/${feed.feedToken}.xml`;
+   const extension =
+  feed.channel === "tiktok"
+    ? "csv"
+    : "xml";
+
+const url =
+`${window.location.origin}/feed/${feed.feedToken}.${extension}`;
 
     navigator.clipboard.writeText(url);
 
@@ -249,7 +200,7 @@ export default function FeedPreview() {
           fontSize: "14px",
         }}
       >
-        {xml}
+        {feedContent}
       </pre>
 
     </div>

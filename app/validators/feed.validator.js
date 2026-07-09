@@ -6,7 +6,7 @@ export function validateFeed(data) {
     errors.feedName = "Feed name is required.";
   }
 
-  // ✅ Channel
+
   if (!data.channel) {
     errors.channel = "Channel is required.";
   } else if (!["google", "meta", "tiktok"].includes(data.channel)) {
