@@ -101,3 +101,8 @@
   background: #eeeeee;
   color: #000000;
 }
+
+.channel-badge.pinterest {
+  background: #e60023;
+  color: white;
+}

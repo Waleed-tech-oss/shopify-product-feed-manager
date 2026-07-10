@@ -15,11 +15,16 @@ const feedSchema = new mongoose.Schema(
     },
 
     channel: {
-      type: String,
-      enum: ["google", "meta", "tiktok"],
-      default: "google",
-      required: true,
-    },
+  type: String,
+  enum: [
+    "google",
+    "meta",
+    "tiktok",
+    "pinterest",
+  ],
+  default: "google",
+  required: true,
+},
 
     feedToken: {
       type: String,

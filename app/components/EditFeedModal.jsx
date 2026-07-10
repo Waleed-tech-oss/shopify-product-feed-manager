@@ -61,6 +61,10 @@ export default function EditFeedModal({
               <option value="tiktok">
                 TikTok Catalog
               </option>
+
+              <option value="pinterest">
+  Pinterest Catalog
+</option>
             </select>
           </div>
 

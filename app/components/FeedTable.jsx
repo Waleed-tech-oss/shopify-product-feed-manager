@@ -36,21 +36,25 @@ export default function FeedTable({ feeds, onEdit }) {
             <tr key={feed._id}>
               <td>{feed.feedName}</td>
 
-              <td>
+             <td>
   <span
     className={`channel-badge ${
       feed.channel === "google"
         ? "google"
         : feed.channel === "meta"
         ? "meta"
-        : "tiktok"
+        : feed.channel === "tiktok"
+        ? "tiktok"
+        : "pinterest"
     }`}
   >
     {feed.channel === "google"
       ? "🟢 Google"
       : feed.channel === "meta"
       ? "🔵 Meta"
-      : "⚫ TikTok"}
+      : feed.channel === "tiktok"
+      ? "⚫ TikTok"
+      : "📌 Pinterest"}
   </span>
 </td>
 

@@ -3,6 +3,7 @@ import { mapGoogleProducts } from "../mappers/google.mapper";
 import { mapMetaProducts } from "../mappers/meta.mapper";
 import { mapTikTokProducts } from "../mappers/tiktok.mapper";
 import { buildCSVFeed } from "../builder/csv-builder.service";
+import { mapPinterestProducts } from "../mappers/pinterest.mapper";
 export function generateFeed(products, feed) {
   let items = [];
 
@@ -14,6 +15,10 @@ export function generateFeed(products, feed) {
 
   case "tiktok":
     items = mapTikTokProducts(products, feed);
+    break;
+
+  case "pinterest":
+    items = mapPinterestProducts(products, feed);
     break;
 
   case "google":
@@ -32,6 +37,8 @@ return buildXMLFeed({
   description:
     feed.channel === "meta"
       ? "Meta Product Feed"
+      : feed.channel === "pinterest"
+      ? "Pinterest Product Feed"
       : "Google Product Feed",
   items,
 });

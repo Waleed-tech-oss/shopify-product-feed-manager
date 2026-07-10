@@ -107,6 +107,10 @@ export default function FeedForm({ editingFeed }) {
           <option value="tiktok">
                TikTok Catalog
             </option>
+
+            <option value="pinterest">
+  Pinterest Catalog
+</option>
         </select>
       </div>
 

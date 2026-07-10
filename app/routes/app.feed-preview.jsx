@@ -91,7 +91,9 @@ export default function FeedPreview() {
     ? "🟢 Google Merchant"
     : feed.channel === "meta"
     ? "🔵 Meta Commerce"
-    : "⚫ TikTok Catalog"}
+    : feed.channel === "tiktok"
+    ? "⚫ TikTok Catalog"
+    : "📌 Pinterest Catalog"}
 </p>
 
   <p><strong>Format:</strong> {feed.format}</p>
