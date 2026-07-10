@@ -4,6 +4,7 @@ import { mapMetaProducts } from "../mappers/meta.mapper";
 import { mapTikTokProducts } from "../mappers/tiktok.mapper";
 import { buildCSVFeed } from "../builder/csv-builder.service";
 import { mapPinterestProducts } from "../mappers/pinterest.mapper";
+import { mapSnapchatProducts } from "../mappers/snapchat.mapper";
 export function generateFeed(products, feed) {
   let items = [];
 
@@ -21,10 +22,16 @@ export function generateFeed(products, feed) {
     items = mapPinterestProducts(products, feed);
     break;
 
+  
+  case "snapchat":
+  items = mapSnapchatProducts(products, feed);
+  break;  
+
   case "google":
   default:
     items = mapGoogleProducts(products, feed);
     break;
+
 }
 
 if (feed.channel === "tiktok") {
@@ -35,11 +42,13 @@ return buildXMLFeed({
   title: feed.feedName,
   link: `https://${feed.shopDomain}`,
   description:
-    feed.channel === "meta"
-      ? "Meta Product Feed"
-      : feed.channel === "pinterest"
-      ? "Pinterest Product Feed"
-      : "Google Product Feed",
+  feed.channel === "meta"
+    ? "Meta Product Feed"
+    : feed.channel === "pinterest"
+    ? "Pinterest Product Feed"
+    : feed.channel === "snapchat"
+    ? "Snapchat Product Feed"
+    : "Google Product Feed",
   items,
 });
 }

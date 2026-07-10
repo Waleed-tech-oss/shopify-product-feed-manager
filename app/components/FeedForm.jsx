@@ -109,8 +109,13 @@ export default function FeedForm({ editingFeed }) {
             </option>
 
             <option value="pinterest">
-  Pinterest Catalog
-</option>
+             Pinterest Catalog
+             </option>
+
+            <option value="snapchat">
+              Snapchat Catalog
+              </option>
+
         </select>
       </div>
 

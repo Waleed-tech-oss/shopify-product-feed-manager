@@ -38,24 +38,28 @@ export default function FeedTable({ feeds, onEdit }) {
 
              <td>
   <span
-    className={`channel-badge ${
-      feed.channel === "google"
-        ? "google"
-        : feed.channel === "meta"
-        ? "meta"
-        : feed.channel === "tiktok"
-        ? "tiktok"
-        : "pinterest"
-    }`}
-  >
-    {feed.channel === "google"
-      ? "🟢 Google"
+  className={`channel-badge ${
+    feed.channel === "google"
+      ? "google"
       : feed.channel === "meta"
-      ? "🔵 Meta"
-      : feed.channel === "tiktok"
-      ? "⚫ TikTok"
-      : "📌 Pinterest"}
-  </span>
+      ? "meta"
+      : feed.channel === "pinterest"
+      ? "pinterest"
+      : feed.channel === "snapchat"
+      ? "snapchat"
+      : "tiktok"
+  }`}
+>
+  {feed.channel === "google"
+    ? "🟢 Google"
+    : feed.channel === "meta"
+    ? "🔵 Meta"
+    : feed.channel === "pinterest"
+    ? "📌 Pinterest"
+    : feed.channel === "snapchat"
+    ? "👻 Snapchat"
+    : "⚫ TikTok"}
+</span>
 </td>
 
               <td>{feed.format}</td>

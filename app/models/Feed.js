@@ -21,6 +21,7 @@ const feedSchema = new mongoose.Schema(
     "meta",
     "tiktok",
     "pinterest",
+    "snapchat",
   ],
   default: "google",
   required: true,

@@ -1,45 +1,134 @@
-.feed-form{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:24px;
-    max-width:700px;
+.feed-form {
+    background: #fff;
+    border: 1px solid #eef0f2;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 720px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.05);
 }
 
-.form-group{
-    display:flex;
-    flex-direction:column;
-    margin-bottom:18px;
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-.form-group label{
-    font-weight:600;
-    margin-bottom:8px;
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
 .form-group input,
-.form-group select{
-    padding:12px;
-    border:1px solid #d1d5db;
-    border-radius:8px;
-    font-size:15px;
+.form-group select {
+    padding: 12px 14px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 9px;
+    font-size: 14.5px;
+    color: #111827;
+    background: #fafafa;
+    transition: all 0.15s ease;
+    outline: none;
 }
 
-.checkbox-group{
-    margin-bottom:16px;
+.form-group input:hover,
+.form-group select:hover {
+    border-color: #d1d5db;
 }
 
-.submit-btn{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:8px;
-    background:#2563eb;
-    color:#fff;
-    font-size:16px;
-    cursor:pointer;
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2563eb;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.12);
 }
 
-.submit-btn:hover{
-    background:#1d4ed8;
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+}
+
+/* Checkboxes */
+.checkbox-group {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    background: #f9fafb;
+    border-radius: 9px;
+    border: 1px solid #f0f1f3;
+    transition: background 0.15s ease;
+}
+
+.checkbox-group:hover {
+    background: #f3f4f6;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #374151;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-bottom: 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #2563eb;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Submit button */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.15s ease;
+}
+
+.submit-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37,99,235,.25);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Optional two-column layout for wider fields (works automatically if you wrap groups) */
+@media (min-width: 640px) {
+    .feed-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 20px;
+    }
+
+    .feed-form .submit-btn,
+    .feed-form .checkbox-group {
+        grid-column: 1 / -1;
+    }
 }

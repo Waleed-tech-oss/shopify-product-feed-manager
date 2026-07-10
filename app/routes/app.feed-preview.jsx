@@ -87,13 +87,15 @@ export default function FeedPreview() {
 
   <p>
   <strong>Channel:</strong>{" "}
-  {feed.channel === "google"
-    ? "🟢 Google Merchant"
-    : feed.channel === "meta"
-    ? "🔵 Meta Commerce"
-    : feed.channel === "tiktok"
-    ? "⚫ TikTok Catalog"
-    : "📌 Pinterest Catalog"}
+{feed.channel === "google"
+  ? "🟢 Google Merchant"
+  : feed.channel === "meta"
+  ? "🔵 Meta Commerce"
+  : feed.channel === "tiktok"
+  ? "⚫ TikTok Catalog"
+  : feed.channel === "pinterest"
+  ? "📌 Pinterest Catalog"
+  : "👻 Snapchat Catalog"}
 </p>
 
   <p><strong>Format:</strong> {feed.format}</p>
@@ -114,12 +116,13 @@ export default function FeedPreview() {
 
       <button
   onClick={() => {
-  const isTikTok = feed.channel === "tiktok";
+  const isCSV =
+  feed.channel === "tiktok";
 
   const blob = new Blob([feedContent], {
-    type: isTikTok
-      ? "text/csv"
-      : "application/xml",
+    type: isCSV
+  ? "text/csv"
+  : "application/xml",
   });
 
   const url = URL.createObjectURL(blob);
@@ -129,8 +132,8 @@ export default function FeedPreview() {
   link.href = url;
 
   link.download = `${feed.feedName}.${
-    isTikTok ? "csv" : "xml"
-  }`;
+  isCSV ? "csv" : "xml"
+}`;
 
   document.body.appendChild(link);
 
