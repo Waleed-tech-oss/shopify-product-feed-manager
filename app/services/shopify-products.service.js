@@ -52,3 +52,17 @@ export async function getShopifyProducts(admin) {
 
   return data.data.products.edges.map(({ node }) => node);
 }
+
+export async function getProductCount(admin) {
+  const response = await admin.graphql(`
+    query {
+      productsCount {
+        count
+      }
+    }
+  `);
+
+  const data = await response.json();
+
+  return data.data.productsCount.count;
+}

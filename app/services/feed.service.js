@@ -40,6 +40,7 @@ export async function getFeeds(shopDomain) {
   .lean();
 }
 
+
 export async function getFeedById(id) {
   await connectDB();
 
@@ -59,4 +60,28 @@ export async function deleteFeed(id) {
   await connectDB();
 
   return await Feed.findByIdAndDelete(id);
+}
+
+export async function getFeedStats(shopDomain) {
+  await connectDB();
+
+  const totalFeeds = await Feed.countDocuments({
+    shopDomain,
+  });
+
+  const activeFeeds = await Feed.countDocuments({
+    shopDomain,
+    isActive: true,
+  });
+
+  const channels = await Feed.distinct("channel", {
+    shopDomain,
+  });
+
+  return {
+    totalFeeds,
+    activeFeeds,
+    totalChannels: channels.length,
+    channels,
+  };
 }

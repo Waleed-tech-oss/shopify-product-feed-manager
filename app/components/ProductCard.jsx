@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
         </span>
 
         <button className="view-btn">
-          View Details
+          Product Details
         </button>
 
       </div>

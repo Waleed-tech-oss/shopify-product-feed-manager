@@ -1,11 +1,24 @@
-// import { authenticate } from "../shopify.server";
+import { authenticate } from "../shopify.server";
+import { handleProductUpdate } from "../services/webhooks/product-update.service";
 
-// export async function action({ request }) {
-//   const { topic, shop, payload } =
-//     await authenticate.webhook(request);
+export async function action({ request }) {
+  try {
+    const { topic, shop, payload } =
+      await authenticate.webhook(request);
 
-//   console.log("PRODUCT UPDATED");
-//   console.log(payload);
+    console.log("========== WEBHOOK ==========");
+    console.log("Topic:", topic);
 
-//   return new Response();
-// }
+    await handleProductUpdate(shop, payload);
+
+    console.log("=============================");
+
+    return new Response(null, { status: 200 });
+  } catch (error) {
+    console.error(error);
+
+    return new Response("Webhook Error", {
+      status: 500,
+    });
+  }
+}

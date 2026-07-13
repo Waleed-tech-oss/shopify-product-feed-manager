@@ -1,11 +1,24 @@
-// import { authenticate } from "../shopify.server";
+import { authenticate } from "../shopify.server";
+import { handleProductDelete } from "../services/webhooks/product-delete.service";
 
-// export async function action({ request }) {
-//   const { topic, shop, payload } =
-//     await authenticate.webhook(request);
+export async function action({ request }) {
+  try {
+    const { topic, shop, payload } =
+      await authenticate.webhook(request);
 
-//   console.log("PRODUCT DELETED");
-//   console.log(payload);
+    console.log("========== WEBHOOK ==========");
+    console.log("Topic:", topic);
 
-//   return new Response();
-// }
+    await handleProductDelete(shop, payload);
+
+    console.log("=============================");
+
+    return new Response(null, { status: 200 });
+  } catch (error) {
+    console.error(error);
+
+    return new Response("Webhook Error", {
+      status: 500,
+    });
+  }
+}
