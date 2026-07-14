@@ -1,85 +1,133 @@
+/* ========================= */
+/* Feed Form - Glassmorphism */
+/* ========================= */
 .feed-form {
-    background: #fff;
-    border: 1px solid #eef0f2;
-    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(30, 35, 55, 0.6) 0%, rgba(20, 24, 40, 0.6) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
     padding: 32px;
     max-width: 720px;
-    box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: #e5e7eb;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    animation: fadeSlideIn 0.5s ease;
+    position: relative;
+    overflow: hidden;
 }
 
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glow orb decoration */
+.feed-form::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
+    filter: blur(30px);
+    pointer-events: none;
+}
+
+/* ========================= */
+/* Form Groups */
+/* ========================= */
 .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .form-group label {
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 8px;
-    font-size: 13px;
-    color: #374151;
+    font-size: 11.5px;
+    color: #9ca3af;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.6px;
 }
 
 .form-group input,
 .form-group select {
-    padding: 12px 14px;
-    border: 1.5px solid #e5e7eb;
-    border-radius: 9px;
-    font-size: 14.5px;
-    color: #111827;
-    background: #fafafa;
-    transition: all 0.15s ease;
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    font-size: 14px;
+    color: #f3f4f6;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
     outline: none;
+    font-family: inherit;
 }
 
 .form-group input:hover,
 .form-group select:hover {
-    border-color: #d1d5db;
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #2563eb;
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.08);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
 }
 
 .form-group input::placeholder {
-    color: #9ca3af;
+    color: #6b7280;
 }
 
 .form-group select {
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239ca3af' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
-    padding-right: 36px;
+    padding-right: 38px;
 }
 
+.form-group select option {
+    background: #1a1f30;
+    color: #f3f4f6;
+}
+
+/* ========================= */
 /* Checkboxes */
+/* ========================= */
 .checkbox-group {
     margin-bottom: 16px;
-    padding: 12px 14px;
-    background: #f9fafb;
-    border-radius: 9px;
-    border: 1px solid #f0f1f3;
-    transition: background 0.15s ease;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .checkbox-group:hover {
-    background: #f3f4f6;
+    background: rgba(99, 102, 241, 0.06);
+    border-color: rgba(99, 102, 241, 0.2);
 }
 
 .checkbox-group label {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-weight: 500;
     font-size: 14px;
-    color: #374151;
+    color: #d1d5db;
     cursor: pointer;
     text-transform: none;
     letter-spacing: normal;
@@ -89,37 +137,60 @@
 .checkbox-group input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: #2563eb;
+    accent-color: #6366f1;
     cursor: pointer;
     flex-shrink: 0;
 }
 
-/* Submit button */
+/* ========================= */
+/* Submit Button */
+/* ========================= */
 .submit-btn {
     width: 100%;
     padding: 14px;
     border: none;
-    border-radius: 10px;
-    background: #2563eb;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     color: #fff;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.3px;
     cursor: pointer;
     margin-top: 8px;
-    transition: all 0.15s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.submit-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 .submit-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(37,99,235,.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+}
+
+.submit-btn:hover::before {
+    left: 100%;
 }
 
 .submit-btn:active {
     transform: translateY(0);
 }
 
-/* Optional two-column layout for wider fields (works automatically if you wrap groups) */
+/* ========================= */
+/* Two-column Layout */
+/* ========================= */
 @media (min-width: 640px) {
     .feed-form {
         display: grid;

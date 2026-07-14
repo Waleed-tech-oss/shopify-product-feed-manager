@@ -2,8 +2,19 @@ import { getShopifyProducts } from "../services/shopify-products.service";
 import { generateXMLFeed } from "../services/xml-generator.service";
 
 export async function loader({ params, request }) {
-const { unauthenticated } = await import("../shopify.server"); 
- const { connectDB } = await import("../lib/mongodb.server");
+
+  console.log("\n========== FEED REQUEST ==========");
+  console.log("Time:", new Date().toLocaleString());
+  console.log("Token:", params.token);
+  console.log("URL:", request.url);
+  console.log(
+    "User-Agent:",
+    request.headers.get("user-agent")
+  );
+  console.log("==================================\n");
+
+  const { unauthenticated } = await import("../shopify.server");
+  const { connectDB } = await import("../lib/mongodb.server");
   const { default: Feed } = await import("../models/Feed");
 
   await connectDB();
@@ -25,19 +36,23 @@ const { unauthenticated } = await import("../shopify.server");
     _id: feedDoc._id.toString(),
   };
 
-const { admin } = await unauthenticated.admin(feed.shopDomain);
-  const products = await getShopifyProducts(admin);
+  const { admin } =
+    await unauthenticated.admin(feed.shopDomain);
 
-const feedContent = generateXMLFeed(products, feed);
+  const products =
+    await getShopifyProducts(admin);
 
-const contentType =
-  feed.channel === "tiktok"
-    ? "text/csv"
-    : "application/xml";
+  const feedContent =
+    generateXMLFeed(products, feed);
 
-return new Response(feedContent, {
-  headers: {
-    "Content-Type": contentType,
-  },
-});
+  const contentType =
+    feed.channel === "tiktok"
+      ? "text/csv"
+      : "application/xml";
+
+  return new Response(feedContent, {
+    headers: {
+      "Content-Type": contentType,
+    },
+  });
 }

@@ -17,6 +17,7 @@ export default function FeedForm({ editingFeed }) {
     googleProductCategory: "",
     includeOutOfStock: false,
     isActive: true,
+    schedule: "1hour",
   });
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function FeedForm({ editingFeed }) {
         editingFeed.googleProductCategory || "",
         includeOutOfStock: editingFeed.includeOutOfStock,
         isActive: editingFeed.isActive,
+        schedule: editingFeed.schedule || "1hour",
       });
     } else {
       setFormData({
@@ -46,6 +48,7 @@ export default function FeedForm({ editingFeed }) {
         googleProductCategory: "",
         includeOutOfStock: false,
         isActive: true,
+        schedule: "1hour",
       });
     }
   }, [editingFeed]);
@@ -225,6 +228,41 @@ export default function FeedForm({ editingFeed }) {
           Include Out of Stock Products
         </label>
       </div>
+         
+         <div className="form-group">
+  <label>Feed Schedule</label>
+
+  <select
+    name="schedule"
+    value={formData.schedule}
+    onChange={handleChange}
+  >
+    <option value="15min">
+      Every 15 Minutes
+    </option>
+
+    <option value="30min">
+      Every 30 Minutes
+    </option>
+
+    <option value="1hour">
+      Every 1 Hour
+    </option>
+
+    <option value="6hour">
+      Every 6 Hours
+    </option>
+
+    <option value="12hour">
+      Every 12 Hours
+    </option>
+
+    <option value="daily">
+      Daily
+    </option>
+  </select>
+</div>
+
 
       <div className="checkbox-group">
         <label>

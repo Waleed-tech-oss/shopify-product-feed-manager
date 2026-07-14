@@ -79,6 +79,27 @@ const feedSchema = new mongoose.Schema(
       type: String,
       default: "Google Shopping",
     },
+    schedule: {
+  type: String,
+  enum: [
+    "15min",
+    "30min",
+    "1hour",
+    "6hour",
+    "12hour",
+    "daily",
+  ],
+  default: "1hour",
+},
+
+lastGeneratedAt: {
+  type: Date,
+  default: null,
+},
+cachedContent: {
+  type: String,
+  default: "",
+},
   },
   {
     timestamps: true,

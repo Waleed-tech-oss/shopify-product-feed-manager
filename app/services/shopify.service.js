@@ -1,3 +1,4 @@
+
 export async function getProducts(admin) {
   const response = await admin.graphql(`
     query GetProducts {

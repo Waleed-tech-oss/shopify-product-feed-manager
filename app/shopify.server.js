@@ -4,8 +4,11 @@ import {
   AppDistribution,
   shopifyApp,
 } from "@shopify/shopify-app-react-router/server";
+
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
+
 import prisma from "./db.server";
+import { startFeedCron } from "./services/feed-cron.service";
 
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
@@ -16,19 +19,50 @@ const shopify = shopifyApp({
   authPathPrefix: "/auth",
   sessionStorage: new PrismaSessionStorage(prisma),
   distribution: AppDistribution.AppStore,
+
   future: {
     expiringOfflineAccessTokens: true,
   },
+
   ...(process.env.SHOP_CUSTOM_DOMAIN
-    ? { customShopDomains: [process.env.SHOP_CUSTOM_DOMAIN] }
+    ? {
+        customShopDomains: [
+          process.env.SHOP_CUSTOM_DOMAIN,
+        ],
+      }
     : {}),
 });
 
+// -------------------------------------
+// Start Feed Scheduler (Only Once)
+// -------------------------------------
+
+if (!globalThis.feedCronStarted) {
+  startFeedCron();
+  globalThis.feedCronStarted = true;
+}
+
+// -------------------------------------
+
 export default shopify;
-export const apiVersion = ApiVersion.October25;
-export const addDocumentResponseHeaders = shopify.addDocumentResponseHeaders;
-export const authenticate = shopify.authenticate;
-export const unauthenticated = shopify.unauthenticated;
-export const login = shopify.login;
-export const registerWebhooks = shopify.registerWebhooks;
-export const sessionStorage = shopify.sessionStorage;
+
+export const apiVersion =
+  ApiVersion.October25;
+
+export const addDocumentResponseHeaders =
+  shopify.addDocumentResponseHeaders;
+
+export const authenticate =
+  shopify.authenticate;
+
+export const unauthenticated =
+  shopify.unauthenticated;
+
+export const login =
+  shopify.login;
+
+export const registerWebhooks =
+  shopify.registerWebhooks;
+
+export const sessionStorage =
+  shopify.sessionStorage;
